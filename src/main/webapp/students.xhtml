@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head/>
+<h:body>
+    <h2>Students in #{studentsInUniversity.university.name} university:</h2>
+    <ol>
+        <ui:repeat value="#{studentsInUniversity.university.students}" var="student">
+            <li>
+                <p>#{student.name} has assigned student number: #{student.studentNumber}</p>
+                <h:form>
+                <h:commandButton value="Expel student from the university"
+                                 actionListener="#{studentsInUniversity.deleteStudent(student.id)}"
+                                 action="#{'students?faces-redirect=true&amp;universityId='.concat(studentsInUniversity.university.id)}">
+                    <f:param name="universityId" value="#{studentsInUniversity.university.id}" />
+                </h:commandButton>
+                </h:form>
+            </li>
+        </ui:repeat>
+    </ol>
+    <h:form>
+        <h:inputText a:placeholder="name" value="#{studentsInUniversity.studentCreate.name}" required="true" /><br/>
+        <h:inputText a:placeholder="surname" value="#{studentsInUniversity.studentCreate.surname}" required="true" /><br/>
+        <h:inputText a:placeholder="studentNumber" value="#{studentsInUniversity.studentCreate.studentNumber}" required="true" /><br/>
+        <h:commandButton value="Add student to university"
+                         actionListener="#{studentsInUniversity.createStudent()}"
+                         action="#{'students?faces-redirect=true&amp;universityId='.concat(studentsInUniversity.university.id)}">
+                <f:param name="universityId" value="#{studentsInUniversity.university.id}" />
+        </h:commandButton>
+    </h:form>
+    <h:link outcome="index" value="Back to universities page"/>
+</h:body>
+</html>
