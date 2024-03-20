@@ -43,9 +43,4 @@ public class StudentsInUniversity implements Serializable {
         studentCreate.setUniversity(this.university);
         studentsDAO.add(studentCreate);
     }
-
-    @Transactional
-    public void deleteStudent(Integer id) {
-        studentsDAO.delete(id);
-    }
 }

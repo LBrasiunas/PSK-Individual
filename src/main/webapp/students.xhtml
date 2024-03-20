@@ -10,22 +10,13 @@
     <h2>Students in #{studentsInUniversity.university.name} university:</h2>
     <ol>
         <ui:repeat value="#{studentsInUniversity.university.students}" var="student">
-            <li>
-                <p>#{student.name} has assigned student number: #{student.studentNumber}</p>
-                <h:form>
-                <h:commandButton value="Expel student from the university"
-                                 actionListener="#{studentsInUniversity.deleteStudent(student.id)}"
-                                 action="#{'students?faces-redirect=true&amp;universityId='.concat(studentsInUniversity.university.id)}">
-                    <f:param name="universityId" value="#{studentsInUniversity.university.id}" />
-                </h:commandButton>
-                </h:form>
-            </li>
+            <li><h:link value="#{student.name} #{student.surname} courses" outcome="studentCourses?universityId=#{studentsInUniversity.university.id}&amp;studentId=#{student.id}" /></li>
         </ui:repeat>
     </ol>
     <h:form>
-        <h:inputText a:placeholder="name" value="#{studentsInUniversity.studentCreate.name}" required="true" /><br/>
-        <h:inputText a:placeholder="surname" value="#{studentsInUniversity.studentCreate.surname}" required="true" /><br/>
-        <h:inputText a:placeholder="studentNumber" value="#{studentsInUniversity.studentCreate.studentNumber}" required="true" /><br/>
+        <h:inputText a:placeholder="Name" value="#{studentsInUniversity.studentCreate.name}" required="true" /><br/>
+        <h:inputText a:placeholder="Surname" value="#{studentsInUniversity.studentCreate.surname}" required="true" /><br/>
+        <h:inputText a:placeholder="Student number" value="#{studentsInUniversity.studentCreate.studentNumber}" required="true" /><br/>
         <h:commandButton value="Add student to university"
                          actionListener="#{studentsInUniversity.createStudent()}"
                          action="#{'students?faces-redirect=true&amp;universityId='.concat(studentsInUniversity.university.id)}">

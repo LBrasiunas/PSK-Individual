@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
 >
 <h:head/>
 <h:body>
@@ -13,9 +14,10 @@
         </ui:repeat>
     </ol>
     <h:form>
-        <h:inputText value="#{universities.universityCreate.name}" required="true" /><br/>
+        <h:inputText a:placeholder="University name" value="#{universities.universityCreate.name}" required="true" /><br/>
         <h:commandButton value="Add new university" actionListener="#{universities.createUniversity()}" action="index?faces-redirect=true"/>
     </h:form>
+    <h:link outcome="courses" value="Course management"/><br/>
     <h:link outcome="mybatis/universities" value="MyBatis implementation"/>
 </h:body>
 </html>
