@@ -15,6 +15,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Model
@@ -38,8 +40,12 @@ public class CoursesForStudent implements Serializable {
     @Getter @Setter
     private Student student;
 
+    @Getter @Setter
+    private List<Course> courses = new ArrayList<>();
+
     @PostConstruct
     public void init() {
+        this.courses = coursesDAO.getAll();
         Map<String, String> requestParameters =
                 FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         Integer universityId = Integer.parseInt(requestParameters.get("universityId"));
