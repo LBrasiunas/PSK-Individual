@@ -1,9 +1,12 @@
 package com.psk.pskindividual.usecases;
 
+import com.psk.pskindividual.decorators.IQuote;
 import com.psk.pskindividual.entities.Student;
 import com.psk.pskindividual.entities.University;
+import com.psk.pskindividual.interceptors.Log;
 import com.psk.pskindividual.persistence.StudentsDAO;
 import com.psk.pskindividual.persistence.UniversitiesDAO;
+import jakarta.persistence.OptimisticLockException;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,6 +23,9 @@ public class StudentsInUniversity implements Serializable {
 
     @Inject
     private UniversitiesDAO universitiesDAO;
+
+    @Inject
+    private IQuote quote;
 
     @Inject
     private StudentsDAO studentsDAO;
@@ -42,5 +48,9 @@ public class StudentsInUniversity implements Serializable {
     public void createStudent() {
         studentCreate.setUniversity(this.university);
         studentsDAO.add(studentCreate);
+    }
+
+    public String loadQuote() {
+        return quote.showQuote();
     }
 }

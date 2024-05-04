@@ -23,7 +23,5 @@ public class UniversitiesDAO {
         this.entityManager.persist(university);
     }
 
-    public University getById(Integer id){
-        return entityManager.find(University.class, id);
-    }
+    public University getById(Integer id) { return entityManager.find(University.class, id); }
 }

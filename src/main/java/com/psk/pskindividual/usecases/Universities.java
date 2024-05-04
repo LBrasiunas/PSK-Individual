@@ -1,7 +1,9 @@
 package com.psk.pskindividual.usecases;
 
+import com.psk.pskindividual.alternatives.IWelcomeMessage;
 import com.psk.pskindividual.entities.University;
 import com.psk.pskindividual.persistence.UniversitiesDAO;
+import com.psk.pskindividual.specialization.RandomMessage;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,6 +20,12 @@ public class Universities implements Serializable {
 
     @Inject
     private UniversitiesDAO universitiesDAO;
+
+    @Inject
+    private IWelcomeMessage welcomeMessage;
+
+    @Inject
+    private RandomMessage randomMessage;
 
     @Getter @Setter
     private University universityCreate = new University();
@@ -37,5 +45,13 @@ public class Universities implements Serializable {
 
     private void loadAllUniversities(){
         this.universities = universitiesDAO.getAll();
+    }
+
+    public String loadWelcomeMessage() {
+        return welcomeMessage.showWelcomeMessage();
+    }
+
+    public String loadRandomMessage() {
+        return randomMessage.loadMessage();
     }
 }

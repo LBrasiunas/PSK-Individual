@@ -7,6 +7,8 @@
 >
 <h:head/>
 <h:body>
+    <p>Welcome message (alternatives): <b>#{universities.loadWelcomeMessage()}</b></p>
+    <p>Random message (specialization): <b>#{universities.loadRandomMessage()}</b></p>
     <h2>Universities:</h2>
     <ol>
         <ui:repeat value="#{universities.universities}" var="university">

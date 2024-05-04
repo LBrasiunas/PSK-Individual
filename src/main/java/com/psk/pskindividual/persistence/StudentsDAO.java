@@ -35,10 +35,4 @@ public class StudentsDAO {
     public void update(Student student){
         this.entityManager.merge(student);
     }
-
-    @Transactional
-    public void delete(Integer id) {
-        Student studentDbResponse = this.getById(id);
-        this.entityManager.remove(studentDbResponse);
-    }
 }

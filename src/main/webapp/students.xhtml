@@ -7,12 +7,14 @@
       xmlns:f="http://java.sun.com/jsf/core">
 <h:head/>
 <h:body>
+    <p>University quote (decorators): <b>#{studentsInUniversity.loadQuote()}</b></p>
     <h2>Students in #{studentsInUniversity.university.name} university:</h2>
     <ol>
         <ui:repeat value="#{studentsInUniversity.university.students}" var="student">
             <li><h:link value="#{student.name} #{student.surname} courses" outcome="studentCourses?universityId=#{studentsInUniversity.university.id}&amp;studentId=#{student.id}" /></li>
         </ui:repeat>
     </ol>
+    <h4>Add a new student:</h4>
     <h:form>
         <h:inputText a:placeholder="Name" value="#{studentsInUniversity.studentCreate.name}" required="true" /><br/>
         <h:inputText a:placeholder="Surname" value="#{studentsInUniversity.studentCreate.surname}" required="true" /><br/>
