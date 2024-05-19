@@ -5,8 +5,10 @@ import com.psk.pskindividual.DTOs.StudentResponse;
 import com.psk.pskindividual.entities.Student;
 import com.psk.pskindividual.persistence.StudentsDAO;
 import com.psk.pskindividual.persistence.UniversitiesDAO;
+import com.psk.pskindividual.usecases.OptLockService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.persistence.OptimisticLockException;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -20,6 +22,9 @@ public class StudentsController {
 
     @Inject
     private UniversitiesDAO universitiesDAO;
+
+    @Inject
+    private OptLockService optLockService;
 
     @Path("/{id}")
     @GET
@@ -80,6 +85,42 @@ public class StudentsController {
         catch (Exception exception) {
             System.out.println("AN ERROR OCCURRED: " + exception.getMessage());
             return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
+    @Path("/{id}/OptLock1")
+    @PUT
+    @Transactional
+    public Response updateStudentNumberOptLock(@PathParam("id") final Integer studentId, @QueryParam("studentNumber") final Long newStudentNumber) {
+        try {
+            optLockService.updateStudentNumberWithOptLockEx(studentId, newStudentNumber);
+            return Response.ok().build();
+        }
+        catch (OptimisticLockException exception){
+            System.out.println("OPT_LOCK ERROR OCCURRED: " + exception.getMessage());
+            return Response.status(Response.Status.CONFLICT).build();
+        }
+        catch (Exception exception) {
+            System.out.println("AN ERROR OCCURRED: " + exception.getMessage());
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @Path("/{id}/OptLock2")
+    @PUT
+    @Transactional
+    public Response updateStudentNumberRegular(@PathParam("id") final Integer studentId, @QueryParam("studentNumber") final Long newStudentNumber) {
+        try {
+            optLockService.updateStudentNumber(studentId, newStudentNumber);
+            return Response.ok().build();
+        }
+        catch (OptimisticLockException exception){
+            System.out.println("OPT_LOCK ERROR OCCURRED: " + exception.getMessage());
+            return Response.status(Response.Status.CONFLICT).build();
+        }
+        catch (Exception exception) {
+            System.out.println("AN ERROR OCCURRED: " + exception.getMessage());
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
     }
 }

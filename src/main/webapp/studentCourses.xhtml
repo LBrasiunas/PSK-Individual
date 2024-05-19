@@ -4,7 +4,6 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
 >
 <h:head/>
 <h:body>
@@ -24,19 +23,6 @@
             <f:param name="universityId" value="#{coursesForStudent.university.id}" />
             <f:param name="studentId" value="#{coursesForStudent.student.id}" />
         </h:commandButton>
-    </h:form>
-    <h4>Update student number:</h4>
-    <h:form>
-        <h:inputText a:placeholder="New student number" value="#{coursesForStudent.student.studentNumber}" required="true" />
-        <h:commandButton value="Update" action="#{coursesForStudent.updateStudentNumber()}">
-            <f:param name="universityId" value="#{coursesForStudent.university.id}" />
-            <f:param name="studentId" value="#{coursesForStudent.student.id}" />
-        </h:commandButton>
-        <h:commandButton value="Update (OptLockException)" action="#{coursesForStudent.updateWithOptLockEx()}">
-            <f:param name="universityId" value="#{coursesForStudent.university.id}" />
-            <f:param name="studentId" value="#{coursesForStudent.student.id}" />
-        </h:commandButton>
-        <h:outputText value="OptimisticLockException Value was already modified. Try again." rendered="#{param['error'] == 'optimistic-lock-exception'}" />
     </h:form>
     <h4>Asynchronous communication example:</h4>
     <h:form>
